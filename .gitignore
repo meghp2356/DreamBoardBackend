@@ -1,0 +1,30 @@
+# Node.js
+node_modules/
+
+# Environment files
+.env
+
+# Logs
+*.log
+logs/
+
+# Cloudinary uploaded images (if you don't want to track them in your repo)
+uploads/
+
+# npm package-lock file
+package-lock.json
+
+# IDEs and Editors
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Miscellaneous
+*.bak
+*.tmp
+
+# .env.local (for local development environment variables, if applicable)
+.env.local
