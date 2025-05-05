@@ -5,10 +5,10 @@ const likeSchema = mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : "User"
     },
-    postId : [{
+    postId : {
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Post'
-    }]
+    }
 },{
     timestamps: true
 })

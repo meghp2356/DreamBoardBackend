@@ -93,3 +93,23 @@ export const getAllPost = async (req, res) => {
         res.status(500).json({message : error.message})
     }
 }
+
+export const likeToggle = async (req,res) => {
+   try {
+     const {postId} = req.params
+     const userId = req.userId
+
+     console.log(postId)
+ 
+     if (!postId) {
+         return res.status(400).json({ message: "Post ID is required" });
+     }
+ 
+     const result = await postService.likeToggle(userId , postId);
+ 
+     return res.status(200).json({message : "like is toggled" , newCount : result});
+   } catch (error) {
+        console.log("error likeToggle", error.message)
+        res.status(500).json({message : error.message})
+   }
+}

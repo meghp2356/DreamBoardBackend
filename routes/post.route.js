@@ -1,4 +1,4 @@
-import { createPost, getPost, deletePost , getAllPost } from "../controller/post.controller.js";
+import { createPost, getPost, deletePost , getAllPost , likeToggle } from "../controller/post.controller.js";
 import verifyToken from "../middleware/verifyUser.middleware.js";
 import express from "express"
 import {upload} from "../middleware/multer.middleware.js"
@@ -18,5 +18,8 @@ route.delete("/:postId", deletePost);
 
 // Route to get post with pagination - Requires authentication
 route.get("/", getAllPost);
+
+// Route to toggle like of a post - Requires authentication
+route.post("/like/:postId", likeToggle);
 
 export { route };

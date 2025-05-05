@@ -1,4 +1,5 @@
 import { Post } from "../models/post.model.js";
+import {Like} from "../models/like.model.js"
 import mongoose from "mongoose";
 
 class PostService{
@@ -8,7 +9,7 @@ class PostService{
         userId ,
     }){
         try {
-            const post = await Post.create({ userId : new mongoose.Types.ObjectId(userId) , content , tags}) 
+            const post = await Post.create({ userId :  new mongoose.Types.ObjectId(userId) , content , tags}) 
 
             if(!post){
                 throw new Error("something went wrong while creating post")
@@ -112,6 +113,51 @@ class PostService{
             const count = post.length
 
             return {post , count}
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async likeToggle(userId , postId){
+        try {
+
+            if (!mongoose.Types.ObjectId.isValid(postId)) {
+                throw new Error("Invalid postId");
+            }
+            
+            const like = await Like.findOne({
+                userId,
+                postId
+            }).lean()
+
+            if(!like){
+                await Like.create({
+                    postId : new mongoose.Types.ObjectId(postId),
+                    userId : new mongoose.Types.ObjectId(userId)
+                })
+
+
+                const post  = await Post.findOneAndUpdate({ _id : postId},{
+                    $inc : {
+                        likeCount : 1
+                    }
+                },{new : true})  
+
+        
+                return post.likeCount
+            }else{
+                await Like.deleteOne({_id : like._id})
+
+                const post = await Post.findOneAndUpdate({ _id :  new mongoose.Types.ObjectId(postId)},{
+                    $inc : {
+                        likeCount : -1
+                    }
+                },{new : true}) 
+
+                return post.likeCount
+            }
+
+
         } catch (error) {
             throw error
         }
