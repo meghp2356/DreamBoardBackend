@@ -27,12 +27,9 @@ const userSchema = mongoose.Schema({
             ref : "Post"
         }
     ],
-    following : {
-        type : mongoose.Schema.Types.ObjectId ,
-        ref : "User"
-    },
     profilePic : {
-        type : String
+        type : String ,
+        default : "https://res.cloudinary.com/de2fygxvn/image/upload/v1747640964/p3rh2nj0azsrhy5rbzjo.webp"
     }
 })
 
